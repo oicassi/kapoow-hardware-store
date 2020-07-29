@@ -39,4 +39,4 @@ Install node and agular. After run `npm install` in the root folder to install a
 Yep! That's it! Super simple.
 
 ## Disclaimer
-This is only for study purposes. :)
+This project was made in colaboration with [André Antunes](https://github.com/andrekantunes).This is only for study purposes. :)
