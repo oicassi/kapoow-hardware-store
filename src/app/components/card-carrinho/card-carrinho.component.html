@@ -1,0 +1,122 @@
+<mat-card>
+  <div fxLayout="row" fxLayoutAlign="space-around center">
+
+    <!-- Botão para remover o item -->
+    <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center">
+      <button mat-mini-fab color="warn" aria-label="Remover item do carrinho" (click)="removerItem()"
+        matTooltip="Remover item do carrinho">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+
+    <!-- Imagem do produto -->
+    <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center">
+      <img src="{{imgUrl}}" alt="{{nome}}" style="height: 100px; width: 100px;" class="card-avatar" />
+    </div>
+
+    <!-- Nome e avaliação (column) -->
+    <div fxFlex="35">
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+
+        <!-- Nome -->
+        <div style="margin-bottom: 20px;">
+          <span>{{nome}}</span>
+        </div>
+
+        <!-- Avaliação -->
+
+        <div class="estrelas-container">
+          <span *ngFor="let estrelaPreenchida of getEstrelasPreenchidas()">
+            <mat-icon aria-hidden="false" [ngStyle]="{'color': 'gold', 'font-size': '1.3rem'}">star</mat-icon>
+          </span>
+          <span *ngFor="let estrelaVazia of getEstrelasVazias()">
+            <mat-icon aria-hidden="false" [ngStyle]="{'color': 'gold', 'font-size': '1.3rem'}">star_border</mat-icon>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Label quantidade e seletor (column) -->
+    <div fxFlex="10">
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+
+        <!-- Label do seletor -->
+        <div>
+          <label for="quantSelector"> <span
+              style="text-align: center;font-size: 0.8rem;font-weight: 100;">Quantidade</span></label>
+        </div>
+
+        <!-- Seletor de quantidade -->
+        <div class="card-carrinho-quant-container">
+          <mat-form-field style="width: 50%;">
+            <input matInput type="number" [(ngModel)]="quantidade" min="1" step="1" name="quantSelector"
+              id="quantSelector" (change)="alterarQuantidadeProduto()">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preço unitário-->
+    <div fxFlex="15" fxLayout="column" fxLayoutAlign="space-around center">
+
+      <!-- Label -->
+      <div style="margin-bottom: 10px">
+        <span style="font-size: 0.8rem">Preço unitário</span>
+      </div>
+
+      <!-- Preço boleto -->
+      <div style="margin-bottom: 10px">
+        <span style="font-size: 1.0rem; font-weight: 100;">{{precoPromo | currency:'BRL' : 'symbol'}} <span
+            style="font-size: 0.8rem; font-weight: 100;">(boleto)</span></span>
+      </div>
+
+      <!-- Preço cartão -->
+      <div style="margin-bottom: 10px">
+        <span
+          style="font-size: 1.0rem; font-weight: 100;">{{precoPromo + (precoPromo * 0.1) | currency:'BRL' : 'symbol'}}
+          <span style="font-size: 0.8rem; font-weight: 100;">(cartão)</span></span>
+      </div>
+    </div>
+
+    <!-- Total boleto e cartao (column) -->
+    <div fxFlex=" 20" fxLayout="column" fxLayoutAlign="space-around center">
+
+
+      <!-- Label total -->
+      <div style="margin-bottom: 15px">
+        <span style="text-align: center;font-size: 0.8rem;">
+          Total
+        </span>
+      </div>
+
+      <!-- Valor boleto -->
+      <div style="margin-bottom: 1px">
+        <span
+          style="text-align: center;font-size: 1.2rem; font-weight: 400;">{{precoPromo * quantidade | currency:'BRL' : 'symbol'}}
+        </span>
+      </div>
+
+      <!-- Texto "à vista" -->
+      <div style="margin-bottom: 8px">
+        <span style="text-align: center;font-size: 0.7rem;font-weight: 100;">
+          (à vista no boleto)
+        </span>
+      </div>
+
+      <!-- Valor cartão -->
+      <div style="margin-bottom: 1px">
+        <span
+          style="text-align: center;font-size: 1.2rem; font-weight: 400;">{{(precoPromo + (precoPromo * 0.1)) * quantidade | currency:'BRL' : 'symbol'}}
+        </span>
+      </div>
+
+      <!-- Texto "parcelado" -->
+      <div style="margin-bottom: 1px">
+        <span style="text-align: center;font-size: 0.7rem;font-weight: 100;">
+          (parcelado no cartão)
+        </span>
+      </div>
+    </div>
+  </div>
+</mat-card>

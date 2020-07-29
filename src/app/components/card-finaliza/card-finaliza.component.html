@@ -1,0 +1,47 @@
+<mat-card style="background-color: #545454; max-height: 90x; padding: 5px !important;">
+  <div fxLayout="row" fxLayoutAlign="space-around center" style="height: 80px;">
+
+    <!-- Imagem do produto -->
+    <div fxFlex="14" fxLayout="row" fxLayoutAlign="center center" style="margin: 10px">
+      <img src="{{imgUrl}}" alt="{{nome}}" style="height: 70; width: 70;" class="card-avatar" />
+    </div>
+
+    <!-- Nome e seletor de valores -->
+    <div fxFlex="85" style="height: 80px;">
+      <div fxLayout="column" fxLayoutAlign="center space-around" style="width: 100%; height: 80px;">
+
+        <!-- Nome -->
+        <div style="display: flex; justify-content: flex-start;">
+          <span style="font-size: 0.8rem;">{{nome}}</span>
+        </div>
+
+        <!-- Quantidades e valores -->
+        <div class="card-finaliza-quant-container">
+
+          <!-- Seletor de quantidade -->
+          <div style="display: flex; justify-content: center; width: 20%;">
+            <mat-form-field style="width: 100%;">
+              <label for="quantSelector"><span style="font-size: 0.6rem;">Quantidade</span></label>
+              <input matInput type="number" [(ngModel)]="quantidade" min="1" step="1" name="quantSelector"
+                id="quantSelector" (change)="alterarQuantidadeProduto()" style="font-size: 0.8rem !important;">
+            </mat-form-field>
+          </div>
+
+          <!-- Preço total no boleto -->
+          <div style="width: 40%;display: flex; justify-content: center; align-items: center;">
+            <span style="font-size:0.8rem">{{precoPromo * quantidade | currency:'BRL' : 'symbol'}} </span><span
+              style="font-size:0.6rem">(boleto)</span>
+          </div>
+
+          <!-- Preço total no cartão -->
+          <div style="width: 40%;display: flex; justify-content: center; align-items: center;">
+            <span
+              style="font-size:0.8rem">{{(precoPromo * quantidade) + (precoPromo * 0.1) | currency:'BRL' : 'symbol'}} </span><span
+              style="font-size:0.6rem"> (cartão)</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</mat-card>

@@ -1,0 +1,50 @@
+<div>
+
+  <!-- Header e Search -->
+
+  <app-header></app-header>
+
+  <app-search></app-search>
+
+
+  <!-- Main Screen -->
+
+  <div fxLayout="row" fxLayoutAlign="space-between">
+
+    <!-- Side Menu -->
+
+    <!-- Side menu de categorias -->
+    <div fxFlex="15" *ngIf="navServ.getShowSideNav() === 'categories'">
+      <app-categories-menu></app-categories-menu>
+    </div>
+
+    <!-- Side menu de contato -->
+    <div fxFlex="15" *ngIf="navServ.getShowSideNav() === 'contatoSide'">
+      <app-contato-side></app-contato-side>
+    </div>
+
+    <!-- Side menu sobre -->
+    <div fxFlex="15" *ngIf="navServ.getShowSideNav() === 'sobreSide'">
+      <app-sobre-side></app-sobre-side>
+    </div>
+    
+    <!-- Side menu cliente -->
+    <div fxFlex="15" *ngIf="navServ.getShowSideNav() === 'clienteSide'">
+      <app-cliente-side></app-cliente-side>
+    </div>
+    
+
+    <!-- Main-->
+    <div fxFlex="fxFill" class="main-container">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+
+  <div>
+    <app-footer></app-footer>
+  </div>
+
+</div>

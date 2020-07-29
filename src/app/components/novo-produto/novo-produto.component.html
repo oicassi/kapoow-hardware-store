@@ -1,0 +1,83 @@
+<div>
+  <span class="title-novo-produto">Adicionar produto<mat-icon style="margin-left: 10px;">add_to_queue</mat-icon></span>
+</div>
+
+<div fxLayout="column" fxLayoutAlign="flex-start center" style="width: 100%;">
+  <div style="margin-bottom: 40px;">
+    <button mat-raised-button color="accent">Selecionar Imagens</button>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="space-around center" class="novo-produto-container">
+
+    <!-- Formulário propriamente dito -->
+    <form [formGroup]="novoProdutoForm" (ngSubmit)="adicionarProduto()" style="width: 100%;">
+      <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">
+
+        <!-- Nome -->
+        <mat-form-field style="width: 75%;">
+          <input matInput type="text" id="nome" name="nome" formControlName="nome" placeholder="Nome do produto"
+            [(ngModel)]="nome" required />
+          <mat-error *ngIf="novoProdutoForm.get('nome').hasError('required')">Campo obrigatório</mat-error>
+        </mat-form-field>
+
+        <!-- Categoria -->
+        <mat-form-field fxFlex="50" style="width: 50%;">
+          <mat-label>Categoria</mat-label>
+          <mat-select [(value)]="categoria" (selectionChange)="mudarSubCategoria(categoria)">
+            <mat-option *ngFor="let categoria of categorias" value="{{categoria}}">
+              {{categoria}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Subcategoria -->
+        <mat-form-field fxFlex="50" style="width: 50%;">
+          <mat-label>Sub categoria</mat-label>
+          <mat-select [(value)]="subCategoria">
+            <mat-option *ngFor="let sub of subCategorias" value="{{sub}}">
+              {{sub}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Descrição -->
+        <mat-form-field style="width: 75%;">
+          <mat-label>Descrição</mat-label>
+          <textarea matInput id="descricao" name="descricao" formControlName="descricao"
+            placeholder="Descreva o produto" [(ngModel)]="descricao" required autocomplete="off"
+            cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"></textarea>
+          <mat-error *ngIf="novoProdutoForm.get('descricao').hasError('required')">Campo obrigatório</mat-error>
+        </mat-form-field>
+
+        <!-- Botão enviar mensagem -->
+        <div style="margin-top: 20px;">
+          <button mat-raised-button color="primary">Adicionar Produto<mat-icon aria-hidden="false"
+              style="margin-left: 10px;">check
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<h4>Imagens do produto</h4>
+
+<div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">
+  <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-bottom: 30px;">
+    <div fxFlex="50" style="display: flex; justify-content: center; align-items: center;">
+      <img src="/assets/imgs-produto/1.jpg" alt="Imagem 1" class="img-produto" />
+    </div>
+    <div fxFlex="50" style="display: flex; justify-content: center; align-items: center;">
+      <img src="/assets/imgs-produto/2.jpg" alt="Imagem 1" class="img-produto" />
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
+    <div fxFlex="50" style="display: flex; justify-content: center; align-items: center;">
+      <img src="/assets/imgs-produto/3.jpg" alt="Imagem 1" class="img-produto" />
+    </div>
+    <div fxFlex="50" style="display: flex; justify-content: center; align-items: center;">
+      <img src="/assets/imgs-produto/4.jpg" alt="Imagem 1" class="img-produto" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div>
+  <h3 matSubheader class="title-categories">Hardware</h3>
+
+  <div fxLayout="column" fxLayoutAlign="space-around flex-start">
+
+    <mat-selection-list [multiple]="false">
+      <mat-list-option *ngFor="let componente of componentes" [value]="categoriaSelecionada" style="font-weight: 200;" (click)="selecionarCategoria(componente)">
+        {{componente}}
+      </mat-list-option>
+    </mat-selection-list>
+
+    <!-- <button mat-button color="basic" *ngFor="let componente of componentes" fxLayoutAlign="space-around start">
+      {{componente}}
+    </button> -->
+  </div>
+
+  <h3 matSubheader class="title-categories">Periféricos</h3>
+
+  <div fxLayout="column" fxLayoutAlign="space-around start">
+
+    <mat-selection-list [multiple]="false">
+      <mat-list-option *ngFor="let periferico of perifericos" [value]="categoriaSelecionada" style="font-weight: 200;"(click)="selecionarCategoria(periferico)">
+        {{periferico}}
+      </mat-list-option>
+    </mat-selection-list>
+
+
+    <!-- <button mat-button color="basic" *ngFor="let periferico of perifericos" fxLayoutAlign="space-around start">
+      {{periferico}}
+    </button> -->
+  </div>
+</div>

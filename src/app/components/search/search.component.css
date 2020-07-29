@@ -1,0 +1,10 @@
+.main-search {
+  width: 80%;
+  margin-top: 10px;
+}
+
+::ng-deep.mat-form-field {
+  font-weight: 100;
+  font-size: 1rem;
+  opacity: 0.8;
+}

@@ -1,0 +1,333 @@
+<!-- Informações de cadastro do cliente -->
+<mat-card>
+  <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">
+
+    <!-- Cadastro e endereço-->
+    <div fxFlex="100" style="width: 100%;"></div>
+    <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="15px" style="width: 100%;">
+
+      <!-- Cadastro -->
+      <div fxFlex="35" [ngClass]="{'cadastro-edit' : isCadastroEdit}">
+        <div class="cliente-sub-container">
+          <div class="cliente-sub-title">
+            <span>Cadastro<mat-icon style="margin-left: 10px;">account_circle</mat-icon></span>
+          </div>
+
+          <!-- Formulário de cadastro -->
+          <div style="width: 100%;">
+            <form [formGroup]="cadastroForm" style="width: 100%;">
+              <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">
+
+                <!-- Nome -->
+                <mat-form-field fxFlex="100" style="width: 100%;">
+                  <input matInput type="text" id="nome" name="nome" formControlName="nome" placeholder="Nome completo"
+                    required [readonly]="!isCadastroEdit" />
+                  <mat-error *ngIf="cadastroForm.get('nome').hasError('required')">Campo obrigatório</mat-error>
+                </mat-form-field>
+
+                <!-- Username -->
+                <mat-form-field fxFlex="100" style="width: 100%;">
+                  <input matInput type="text" id="username" name="username" formControlName="username"
+                    placeholder="Nome para exibição" required [readonly]="!isCadastroEdit" />
+                  <mat-error *ngIf="cadastroForm.get('username').hasError('required')">Campo obrigatório</mat-error>
+                </mat-form-field>
+
+                <!-- Email -->
+                <mat-form-field fxFlex="100" style="width: 100%;">
+                  <input matInput type="email" id="email" name="email" formControlName="email" placeholder="Email"
+                    required [readonly]="!isCadastroEdit" />
+                  <mat-error *ngIf="cadastroForm.get('email').hasError('required')">Campo obrigatório</mat-error>
+                  <mat-error *ngIf="cadastroForm.get('email').hasError('email')">Insira um email válido</mat-error>
+                </mat-form-field>
+
+                <!-- CPF e Telefone-->
+                <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px" fxFlex="100"
+                  style="width: 100%;">
+
+                  <!-- Telefone -->
+                  <mat-form-field fxFlex="50" style="width: 15%;">
+                    <input matInput type="text" id="telefone" name="telefone" formControlName="telefone"
+                      placeholder="Celular" mask="{{telefoneMask}}" required [readonly]="!isCadastroEdit" />
+                    <mat-error *ngIf="cadastroForm.get('telefone').hasError('required')">Campo obrigatório</mat-error>
+                  </mat-form-field>
+
+                  <!-- CPF -->
+                  <mat-form-field fxFlex="50" style="width: 15%;">
+                    <input matInput type="text" id="cpf" name="cpf" formControlName="cpf" placeholder="CPF"
+                      mask="{{cpfMask}}" required [readonly]="!isCadastroEdit" />
+                    <mat-error *ngIf="cadastroForm.get('cpf').hasError('required')">Campo obrigatório</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </form>
+
+            <!-- Botões de controle cadastro -->
+            <div
+              style="margin-bottom: 20px; margin-top:10px; display: flex; flex-direction: row; justify-content: space-around;">
+              <div>
+                <button mat-raised-button color="accent" *ngIf="!isCadastroEdit" (click)="editarCadastro()">Editar
+                  cadastro<mat-icon aria-hidden="false" style="margin-left: 10px;">edit
+                  </mat-icon>
+                </button>
+                <button mat-raised-button color="warn" *ngIf="isCadastroEdit"
+                  (click)="cancelarEdicaoCadastro()">Cancelar edição<mat-icon aria-hidden="false"
+                    style="margin-left: 10px;">remove_circle_outline
+                  </mat-icon>
+                </button>
+              </div>
+              <div *ngIf="isCadastroEdit">
+                <button mat-raised-button color="primary" (click)="salvarCadastro()">Salvar<mat-icon aria-hidden="false"
+                    style="margin-left: 10px;">
+                    save
+                  </mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Endereço -->
+      <div fxFlex="65" [ngClass]="{'cadastro-edit' : isEdit}">
+        <div class="cliente-sub-container">
+          <div class="cliente-sub-title">
+            <span>Endereço<mat-icon style="margin-left: 10px;">place</mat-icon></span>
+          </div>
+
+          <!-- Formulário de endereço -->
+          <div style="width: 100%;">
+            <form [formGroup]="enderecoForm" style="width: 100%;">
+              <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">
+
+                <!-- Nome e CEP -->
+                <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px" fxFlex="100"
+                  style="width: 100%;">
+                  <!-- Nome do endereço -->
+                  <mat-form-field fxFlex="75" style="width: 80%;">
+                    <input matInput type="text" id="nomeEnd" name="nomeEnd" formControlName="nomeEnd"
+                      placeholder="Identificação do endereço" required [readonly]="!isEdit" />
+                    <mat-error *ngIf="enderecoForm.get('nomeEnd').hasError('required')">Campo obrigatório</mat-error>
+                  </mat-form-field>
+
+                  <!-- CEP -->
+                  <mat-form-field fxFlex="25" style="width: 15%;">
+                    <input matInput type="text" id="cep" name="cep" formControlName="cep" placeholder="CEP"
+                      mask="{{cepMask}}" required [readonly]="!isEdit" />
+                    <mat-error *ngIf="enderecoForm.get('cep').hasError('required')">Campo obrigatório</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- Logradouro  e número-->
+                <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px" fxFlex="100"
+                  style="width: 100%;">
+
+                  <!-- Logradouro -->
+                  <mat-form-field fxFlex="85" style="width: 85%;">
+                    <input matInput type="text" id="logradouro" name="logradouro" formControlName="logradouro"
+                      placeholder="Logradouro" required [readonly]="!isEdit" />
+                    <mat-error *ngIf="enderecoForm.get('logradouro').hasError('required')">Campo obrigatório</mat-error>
+                  </mat-form-field>
+
+                  <!-- Numero -->
+                  <mat-form-field fxFlex="15" style="width: 15%;">
+                    <input matInput type="text" id="numero" name="numero" formControlName="numero" placeholder="Número"
+                      mask="{{numeroMask}}" required [readonly]="!isEdit" />
+                    <mat-error *ngIf="enderecoForm.get('numero').hasError('required')">Campo obrigatório</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- Bairro e complemento -->
+                <div fxLayout="row" flxLayoutAlign="space-around center" fxLayoutGap="10px" fxFlex="100"
+                  style="width: 100%;">
+
+                  <!-- Bairro -->
+                  <mat-form-field fxFlex="60" style="width: 60%;">
+                    <input matInput type="text" id="bairro" name="bairro" formControlName="bairro" placeholder="Bairro"
+                      required [readonly]="!isEdit" />
+                    <mat-error *ngIf="enderecoForm.get('bairro').hasError('required')">Campo obrigatório</mat-error>
+                  </mat-form-field>
+
+                  <!-- Complemento -->
+                  <mat-form-field fxFlex="30" style="width: 30%;">
+                    <input matInput type="text" id="complemento" name="complemento" formControlName="complemento"
+                      placeholder="Complemento" required [readonly]="!isEdit" />
+                    <mat-error *ngIf="enderecoForm.get('complemento').hasError('required')">Campo obrigatório
+                    </mat-error>
+                  </mat-form-field>
+
+                </div>
+
+                <!-- Cidade e UF -->
+                <div fxLayout="row" flxLayoutAlign="space-around center" fxLayoutGap="10px" fxFlex="100"
+                  style="width: 100%;">
+
+                  <!-- Cidade -->
+                  <mat-form-field fxFlex="80" style="width: 80%;">
+                    <input matInput type="text" id="cidade" name="cidade" formControlName="cidade" placeholder="Cidade"
+                      required [readonly]="!isEdit" />
+                    <mat-error *ngIf="enderecoForm.get('cidade').hasError('required')">Campo obrigatório</mat-error>
+                  </mat-form-field>
+
+                  <!-- UF -->
+                  <mat-form-field fxFlex="20" style="width: 20%;">
+                    <mat-label>UF</mat-label>
+                    <mat-select [(value)]="uf" [disabled]="!isEdit">
+                      <mat-option *ngFor="let uf of ufs" value="{{uf}}">
+                        {{uf}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+            </form>
+
+            <!-- Botões controle endereço -->
+            <div
+              style="margin-bottom: 20px; margin-top:10px; display: flex; flex-direction: row; justify-content: space-around;">
+              <div>
+                <button mat-raised-button color="accent" *ngIf="!isEdit" (click)="editarEndereco()">Editar endereço
+                  <mat-icon aria-hidden="false" style="margin-left: 10px;">edit_location
+                  </mat-icon>
+                </button>
+                <button mat-raised-button color="warn" *ngIf="isEdit" (click)="cancelarEdicaoEndereco()">Cancelar edição
+                  <mat-icon aria-hidden="false" style="margin-left: 10px;">remove_circle_outline
+                  </mat-icon>
+                </button>
+              </div>
+              <div *ngIf="isEdit">
+                <button mat-raised-button color="primary" (click)="salvarEndereco()">Salvar<mat-icon aria-hidden="false"
+                    style="margin-left: 10px;">
+                    save
+                  </mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+<!-- Tables de transações do usuário -->
+<mat-card style="margin-top: 30px;">
+  <mat-tab-group [selectedIndex]="navServ.getClienteTabIndex()" style="width: 100%;">
+    <mat-tab label="Meus Pedidos">
+
+      <!-- Tabela com pedidos -->
+      <table mat-table [dataSource]="pedidos" class="mat-elevation-z8" style="width: 100%;">
+
+        <!-- Coluna Pedido -->
+        <ng-container matColumnDef="numPedido">
+          <th mat-header-cell *matHeaderCellDef> Número do pedido </th>
+          <td mat-cell *matCellDef="let element"> {{element.numPedido}} </td>
+        </ng-container>
+
+        <!-- Coluna Data -->
+        <ng-container matColumnDef="data">
+          <th mat-header-cell *matHeaderCellDef> Data </th>
+          <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+        </ng-container>
+
+        <!-- Coluna Pagamento -->
+        <ng-container matColumnDef="pagamento">
+          <th mat-header-cell *matHeaderCellDef> Forma de pagamento </th>
+          <td mat-cell *matCellDef="let element"> {{element.pagamento}} </td>
+        </ng-container>
+
+        <!-- Coluna Status -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status do pedido </th>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+
+        <!-- Coluna NFe -->
+        <ng-container matColumnDef="nfe">
+          <th mat-header-cell *matHeaderCellDef> Nota Fiscal </th>
+          <td mat-cell *matCellDef="let element"> {{element.nfe}} <mat-icon style="margin-left: 10px; cursor: pointer;"
+              matTooltip="Visualizar nota fiscal">receipt</mat-icon>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="pedidosColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: pedidosColumns;"></tr>
+      </table>
+    </mat-tab>
+
+    <mat-tab label="Meus Protocolos">
+
+      <!-- Tabela com protocolos -->
+      <table mat-table [dataSource]="protocolos" class="mat-elevation-z8" style="width: 100%;">
+
+        <!-- Coluna Número do protocolo -->
+        <ng-container matColumnDef="numProtocolo">
+          <th mat-header-cell *matHeaderCellDef> Número do protocolo </th>
+          <td mat-cell *matCellDef="let element"> {{element.numProtocolo}} </td>
+        </ng-container>
+
+        <!-- Coluna Data -->
+        <ng-container matColumnDef="data">
+          <th mat-header-cell *matHeaderCellDef> Data </th>
+          <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+        </ng-container>
+
+        <!-- Coluna Status -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status do protocolo </th>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+
+        <!-- Coluna Visualizar Detalhes -->
+        <ng-container matColumnDef="detalhes">
+          <th mat-header-cell *matHeaderCellDef> Ver detalhes </th>
+          <td mat-cell *matCellDef="let element">Visualizar<mat-icon style="margin-left: 10px; cursor: pointer;"
+              matTooltip="Visualizar os detalhes do protocolo">pageview</mat-icon>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="protocolosColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: protocolosColumns;"></tr>
+      </table>
+
+    </mat-tab>
+
+    <mat-tab label="Troca e garantia">
+
+      <!-- Tabela com trocas e garantias -->
+      <table mat-table [dataSource]="trocasGarantias" class="mat-elevation-z8" style="width: 100%;">
+
+        <!-- Coluna Número do pedido -->
+        <ng-container matColumnDef="numPedido">
+          <th mat-header-cell *matHeaderCellDef> Número do pedido </th>
+          <td mat-cell *matCellDef="let element"> {{element.numPedido}} </td>
+        </ng-container>
+
+        <!-- Coluna Data -->
+        <ng-container matColumnDef="data">
+          <th mat-header-cell *matHeaderCellDef> Data </th>
+          <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+        </ng-container>
+
+        <!-- Coluna NFe -->
+        <ng-container matColumnDef="nfe">
+          <th mat-header-cell *matHeaderCellDef> Nota Fiscal </th>
+          <td mat-cell *matCellDef="let element"> {{element.nfe}} <mat-icon style="margin-left: 10px; cursor: pointer;"
+              matTooltip="Visualizar nota fiscal">receipt</mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- Coluna Status -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status do protocolo </th>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="trocasGarantiasColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: trocasGarantiasColumns;"></tr>
+      </table>
+
+    </mat-tab>
+  </mat-tab-group>
+
+</mat-card>

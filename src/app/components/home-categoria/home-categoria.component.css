@@ -1,0 +1,17 @@
+.title-home-filrado {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.main-container-home-filtrado {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.card-filtrado {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 35px;
+}

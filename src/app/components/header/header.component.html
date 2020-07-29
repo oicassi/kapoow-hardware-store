@@ -1,0 +1,52 @@
+<mat-toolbar fxLayout="row" fxLayoutAlign="space-around center" color="primary" class="mat-elevation-z6 mega-nav-bar">
+
+    <!-- Logo -->
+    <div (click)="navegar('')" style="cursor: pointer; display: flex; align-items: center; justify-content: center;">
+        <img src="/assets/extra/logo.png" alt="KaPoow Hardware Store" style="width: 200px; height: 60px;">
+    </div>
+
+    <!-- Login/Cadastro -->
+    <button mat-button color="basic" *ngIf="!loginServ.isLogged()" aria-label="Login e cadastro"
+        (click)="openLoginModal()">
+        <mat-icon aria-hidden="false">login</mat-icon>
+        Login / Cadastre-se
+    </button>
+    <button mat-button [matMenuTriggerFor]="loginMenu" color="basic" *ngIf="loginServ.isLogged()"
+        aria-label="Usuário já está logado">
+        <mat-icon aria-hidden="false">face</mat-icon>
+        {{loginServ.getNomeUsuario()}}
+    </button>
+
+    <!-- Opção de logout para quando o usuário está logado -->
+    <mat-menu #loginMenu="matMenu">
+        <button mat-menu-item (click)="efetuarLogout()" aria-label="Fazer logout">
+            <mat-icon aria-hidden="false">remove_circle_outline</mat-icon>
+            Logout
+        </button>
+    </mat-menu>
+
+    <!-- Área do cliente -->
+    <button mat-button color="basic" aria-label="Área do cliente" (click)="navegar('cliente')">
+        <mat-icon aria-hidden="false">account_circle</mat-icon>
+        Área do Cliente
+    </button>
+
+    <!-- Carrinho de compras -->
+    <button mat-button color="basic" aria-label="Carrinho de compras" (click)="navegar('carrinho')">
+        <mat-icon aria-hidden="false" matBadge="{{carrinhoServ.getQuantidadeProdutosCarrinho()}}" matBadgeColor="accent"
+            [matBadgeHidden]="(carrinhoServ.getQuantidadeProdutosCarrinho() > 0 ? false : true)">shopping_cart</mat-icon>
+        Carrinho de Compras
+    </button>
+
+    <!-- Fale conosco -->
+    <button mat-button color="basic" aria-label="Fale conosco" (click)="navegar('contato')">
+        <mat-icon aria-hidden="false">headset_mic</mat-icon>
+        Fale Conosco
+    </button>
+
+    <!-- Sobre a empresa -->
+    <button mat-button color="basic" aria-label="Sobre a Kapoow" (click)="navegar('sobre')">
+        <mat-icon aria-hidden="false">home</mat-icon>
+        Sobre a Empresa
+    </button>
+</mat-toolbar>

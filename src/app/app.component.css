@@ -1,0 +1,8 @@
+.main-container {
+  min-height: 100vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  flex-wrap: wrap;
+  padding: 17px;
+  border-left: 1px solid #444444;
+}

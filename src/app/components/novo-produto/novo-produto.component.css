@@ -1,0 +1,25 @@
+.title-novo-produto {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.novo-produto-container {
+  margin-top: 50px;
+  padding: 10px;
+  width: 95%;
+  max-width: 100%;
+  border: 1px solid #666666;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px #666666;
+  transition: all 500ms;
+}
+
+.novo-produto-container:hover {
+  box-shadow: 0px 0px 7px #666666;
+}
+
+.img-produto {
+  width: 400px;
+  height: 400px;
+  border-radius: 5px;
+}

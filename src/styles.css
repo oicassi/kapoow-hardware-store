@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.background-pink {
+    background-color: #e91e63;
+}
+
+.snackbar-error {
+    background-color: #ff6c6c !important;
+}
+
+.snackbar-success {
+    background-color: #80f5cc !important;
+}
+
+.custom-modalBox > mat-dialog-container {
+   background-color: #252525;
+}
+
+.custom-backdrop {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+

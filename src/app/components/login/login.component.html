@@ -1,0 +1,258 @@
+<div class="main-dialog-container">
+  <div class="logo-container">
+    <span style="font-size: 1.2rem; font-weight: 500; margin-bottom: 5px;text-align: center;">KAPOOW</span><br>
+    <span style="font-size: 1.2rem; font-weight: 500;">Hardware Store</span>
+  </div>
+
+  <!-- Em caso de cadastro já existente, apresentar o formulário a seguir -->
+  <div fxLayout="column" fxLayoutAlign="space-around center" class="cadastro-container" *ngIf="isLogin">
+
+    <!-- Título do formulário -->
+    <h4 style="text-align: start; margin: 5px 0px 10px">
+      <mat-icon aria-hidden="false" style="margin-right: 10px;">lock</mat-icon>Login
+    </h4>
+
+    <!-- Formulário propriamente dito -->
+    <form [formGroup]="loginForm" (ngSubmit)="loginUsuario()" style="width: 100%;">
+      <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">
+
+        <!-- Email -->
+        <mat-form-field style="width: 75%;">
+          <input matInput type="email" id="email" name="email" formControlName="email" placeholder="Login (email)"
+            [(ngModel)]="email" required autocomplete="off" />
+          <mat-error *ngIf="loginForm.get('email').hasError('required')">Campo obrigatório</mat-error>
+          <mat-error *ngIf="loginForm.get('email').hasError('email')">Email inválido</mat-error>
+        </mat-form-field>
+
+        <!-- Senha -->
+        <mat-form-field style="width: 75%;">
+          <input matInput type="password" id="senha" name="senha" formControlName="senha" placeholder="Senha"
+            [(ngModel)]="senha" required />
+          <mat-error *ngIf="loginForm.get('senha').hasError('required')">Campo obrigatório</mat-error>
+        </mat-form-field>
+
+        <!-- Botão entrar -->
+        <div style="margin-top: 20px;">
+          <button mat-raised-button color="primary" (click)="loginUsuario()">Entrar<mat-icon aria-hidden="false"
+              style="margin-left: 10px;">login
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Outras ações -->
+    <div fxLayout="column" fxLayoutAlign="space-around center" style="margin-top: 20px;">
+
+      <!-- Link para recuperar a senha -->
+      <div style="margin-bottom: 20px;">
+        <button mat-button (click)="alterarLoginNovoCadastro('isSenha')">Esqueceu sua senha?</button>
+      </div>
+
+      <!-- Botão para efetuar novo cadastro -->
+      <div>
+        <button mat-raised-button color="accent" (click)="alterarLoginNovoCadastro('isRegistro')">Novo cadastro
+          <mat-icon aria-hidden="false">person_add</mat-icon></button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Em caso de novo registro apresentar o formulário a seguir -->
+  <div fxLayout="column" fxLayoutAlign="space-around center" class="cadastro-container" *ngIf="isRegistro">
+
+    <!-- Título do formulário -->
+    <h4 style="text-align: start;  margin: 5px 0px 10px">
+      <mat-icon aria-hidden="false" style="margin-right: 10px;">person_add</mat-icon>Novo cadastro
+    </h4>
+
+    <!-- Formulário propriamente dito -->
+    <form [formGroup]="registroForm" (ngSubmit)="registrarNovoUsuario()" style="width: 100%;">
+      <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">
+
+        <!-- Email e Celular -->
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px" fxFlex="100" style="width:100%">
+
+          <!-- Email -->
+          <mat-form-field style="width: 75%;">
+            <input matInput type="email" id="email" name="email" formControlName="email" placeholder="Login (email)"
+              [(ngModel)]="email" required />
+            <mat-error *ngIf="registroForm.get('email').hasError('required')">Campo obrigatório</mat-error>
+            <mat-error *ngIf="registroForm.get('email').hasError('email')">Email inválido</mat-error>
+          </mat-form-field>
+
+          <!-- Celular -->
+          <mat-form-field style="width: 25%;">
+            <input matInput type="text" id="telefone" name="telefone" formControlName="telefone" placeholder="Celular"
+              [(ngModel)]="telefone" mask="{{telefoneMask}}" required autocomplete="off" />
+            <mat-error *ngIf="registroForm.get('telefone').hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Senha e senha repetida -->
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px" fxFlex="100" style="width: 100%;">
+
+          <!-- Senha -->
+          <mat-form-field style="width: 50%;">
+            <input matInput type="password" id="senha" name="senha" formControlName="senha" placeholder="Senha"
+              [(ngModel)]="senha" required />
+            <mat-error *ngIf="registroForm.get('senha').hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+
+          <!-- Senha repetida -->
+          <mat-form-field style="width: 50%;">
+            <input matInput type="password" id="senhaRepetida" name="senhaRepetida" formControlName="senhaRepetida"
+              placeholder="Repita a sua senha" [(ngModel)]="senhaRepetida" required />
+            <mat-error *ngIf="registroForm.get('senhaRepetida').hasError('required')">Campo obrigatório</mat-error>
+            <mat-error *ngIf="registroForm.get('senhaRepetida').hasError('senhaDiferente')">Senhas estão diferentes
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Nome completo -->
+        <mat-form-field style="width: 100%;">
+          <input matInput type="text" id="nome" name="nome" formControlName="nome"
+            placeholder="Digite seu nome completo" [(ngModel)]="nome" required />
+          <mat-error *ngIf="registroForm.get('nome').hasError('required')">Campo obrigatório</mat-error>
+        </mat-form-field>
+
+        <!-- Username e CPF -->
+        <div fxLayout="row" fxFlex="100" fxLayoutGap="10px" fxLayoutAlign="space-around center" style="width: 100%;">
+
+          <!-- Username -->
+          <mat-form-field fxFlex="70" style="width: 70%;">
+            <input matInput type="text" id="username" name="username" formControlName="username"
+              placeholder="Digite um nome para exibição" [(ngModel)]="username" required />
+            <mat-error *ngIf="registroForm.get('senha').hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+
+          <!-- CPF -->
+          <mat-form-field fxFlex="30" style="width: 30%;">
+            <input matInput type="text" id="cpf" name="cpf" formControlName="cpf" placeholder="Digite seu CPF"
+              [(ngModel)]="cpf" required mask="{{cpfMask}}" />
+            <mat-error *ngIf="registroForm.get('cpf').hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Logradouro  e número-->
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px" fxFlex="100" style="width: 100%;">
+
+          <!-- Logradouro -->
+          <mat-form-field fxFlex="85" style="width: 85%;">
+            <input matInput type="text" id="logradouro" name="logradouro" formControlName="logradouro"
+              placeholder="Logradouro" [(ngModel)]="logradouro" required />
+            <mat-error *ngIf="registroForm.get('logradouro').hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+
+          <!-- Numero -->
+          <mat-form-field fxFlex="15" style="width: 15%;">
+            <input matInput type="text" id="numero" name="numero" formControlName="numero" placeholder="Número"
+              [(ngModel)]="numero" mask="{{numeroMask}}" required />
+            <mat-error *ngIf="registroForm.get('numero').hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <!-- Informações adicionais do endereço -->
+        <div fxLayout="row" flxLayoutAlign="space-around center" fxLayoutGap="10px" fxFlex="100" style="width: 100%;">
+
+          <!-- Bairro -->
+          <mat-form-field fxFlex="24" style="width: 24%;">
+            <input matInput type="text" id="bairro" name="bairro" formControlName="bairro" placeholder="Bairro"
+              [(ngModel)]="bairro" required />
+            <mat-error *ngIf="registroForm.get('bairro').hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+
+          <!-- Complemento -->
+          <mat-form-field fxFlex="25" style="width: 25%;">
+            <input matInput type="text" id="complemento" name="complemento" formControlName="complemento"
+              placeholder="Complemento" [(ngModel)]="complemento" required />
+            <mat-error *ngIf="registroForm.get('complemento').hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+
+          <!-- CEP -->
+          <mat-form-field fxFlex="15" style="width: 15%;">
+            <input matInput type="text" id="cep" name="cep" formControlName="cep" placeholder="CEP" [(ngModel)]="cep"
+              mask="{{cepMask}}" required />
+            <mat-error *ngIf="registroForm.get('cep').hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+
+          <!-- Cidade -->
+          <mat-form-field fxFlex="24" style="width: 24%;">
+            <input matInput type="text" id="cidade" name="cidade" formControlName="cidade" placeholder="Cidade"
+              [(ngModel)]="cidade" required />
+            <mat-error *ngIf="registroForm.get('cidade').hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+
+          <!-- UF -->
+          <mat-form-field fxFlex="8" style="width: 8%;">
+            <mat-label>UF</mat-label>
+            <mat-select [(value)]="uf">
+              <mat-option *ngFor="let uf of ufs" value="uf">
+                {{uf}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div style="margin-bottom: 20px; margin-top:10px">
+          <button mat-raised-button color="primary" (click)="registrarNovoUsuario()">Cadstrar e Entrar<mat-icon
+              aria-hidden="false" style="margin-left: 10px;">login
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+    <div>
+      <button mat-raised-button color="accent" (click)="alterarLoginNovoCadastro('isLogin')">Já possuo cadastro<mat-icon
+          aria-hidden="false">lock</mat-icon></button>
+    </div>
+  </div>
+
+  <!-- Em caso de recuperação de senha, apresentar o formulário a seguir -->
+  <div fxLayout="column" fxLayoutAlign="space-around center" class="cadastro-container" *ngIf="isSenha">
+
+    <!-- Título do formulário -->
+    <h4 style="text-align: start;  margin: 5px 0px 10px">
+      <mat-icon aria-hidden="false" style="margin-right: 10px;">help_outline</mat-icon>Recuperação de senha
+    </h4>
+
+    <!-- Formulário propriamente dito -->
+    <form [formGroup]="senhaForm" (ngSubmit)="recuperarSenha()" style="width: 100%;">
+      <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">
+
+        <!-- Email cadastrado -->
+        <mat-form-field fxFlex="75" style="width: 75%;">
+          <input matInput type="email" id="email" name="email" formControlName="email" placeholder="Email cadastrado"
+            [(ngModel)]="email" required />
+          <mat-error *ngIf="senhaForm.get('email').hasError('required')">Campo obrigatório</mat-error>
+          <mat-error *ngIf="senhaForm.get('email').hasError('email')">Email inválido</mat-error>
+        </mat-form-field>
+
+        <!-- Botão recuperar a senha -->
+        <div style="margin-top: 20px;">
+          <button mat-raised-button color="primary" (click)="recuperarSenha()">Solicitar Nova senha<mat-icon
+              aria-hidden="false" style="margin-left: 10px;">vpn_key
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Outras ações -->
+    <div fxLayout="column" fxLayoutAlign="space-around center" style="margin-top: 20px;">
+
+      <!-- Link para voltar ao login -->
+      <div>
+        <button mat-button (click)="alterarLoginNovoCadastro('isLogin')">Tentar login novamente</button>
+      </div>
+
+      <!-- Botão para efetuar novo cadastro -->
+      <div style="margin-top:20px">
+        <button mat-raised-button color="accent" (click)="alterarLoginNovoCadastro('isRegistro')">Novo cadastro
+          <mat-icon aria-hidden="false">person_add</mat-icon></button>
+      </div>
+    </div>
+  </div>
+
+</div>

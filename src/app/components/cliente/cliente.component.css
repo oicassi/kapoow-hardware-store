@@ -1,0 +1,37 @@
+.title-sobre {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.cliente-sub-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.cliente-sub-title {
+  font-size: 1.0rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.sobre-sub-paragraph {
+  font-size: 0.9rem;
+  font-weight: 100;
+  margin: 0 25px 10px;
+  text-align: justify;
+}
+
+.cadastro-edit {
+  border: 1px solid #888888;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #888888;
+  transition: all 500ms;
+}
+
+.cadastro-edit:hover {
+  box-shadow: 0 0 10px #888888;
+}

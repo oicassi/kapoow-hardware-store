@@ -1,0 +1,137 @@
+<div fxLayout="column" fxLayoutAlign="start center" class="carrinho-main-container">
+
+  <!-- Título -->
+  <div class="carrinho-title-container">
+    <span class="carrinho-title">Meu Carrinho <mat-icon aria-hidden="false">shopping_cart</mat-icon></span>
+  </div>
+
+  <!-- Container dos cards dos produtos no carrinho -->
+
+  <div *ngFor="let produto of carrinhoServ.getProdutosCarrinho(); let i = index" class="card-carrinho">
+    <app-card-carrinho [nome]="produto.nome" [imgUrl]="produto.imgUrl" [rate]="produto.rate"
+      [precoNormal]="produto.precoNormal" [precoPromo]="produto.precoPromo" [quant]="produto.quant" [id]="i"
+      style="width: 100%;">
+    </app-card-carrinho>
+  </div>
+
+  <!-- Card com valores totais -->
+  <div fxLayout="row" fxLayoutAlign="end center"
+    *ngIf="(carrinhoServ.getQuantidadeProdutosCarrinho() > 0 ? true : false)" style="width: 100%;">
+    <mat-card class="card-total">
+      <mat-card-header>
+        <mat-card-title>Valores totais</mat-card-title>
+      </mat-card-header>
+      <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
+
+        <!-- Valor total Boleto -->
+        <div fxFlex="25">
+          <div fxLayout="column" fxLayoutAlign="space-around center">
+
+            <!-- Valor boleto -->
+            <div style="margin-bottom: 1px">
+              <span
+                style="text-align: center;font-size: 1.6rem; font-weight: bold;">{{carrinhoServ.getValorTotalBoleto() | currency:'BRL' : 'symbol'}}
+              </span>
+            </div>
+
+            <!-- Texto "à vista" -->
+            <div style="margin-bottom: 8px">
+              <span style="text-align: center;font-size: 0.8rem;font-weight: 100;">
+                (à vista no boleto)
+              </span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Valor total cartão -->
+        <div fxFlex="25">
+          <div fxLayout="column" fxLayoutAlign="space-around center">
+
+            <!-- Valor cartão -->
+            <div style="margin-bottom: 1px">
+              <span
+                style="text-align: center;font-size: 1.6rem; font-weight: bold;">{{carrinhoServ.getValorTotalCartao() | currency:'BRL' : 'symbol'}}
+              </span>
+            </div>
+
+            <!-- Texto "parcelado..." -->
+            <div style="margin-bottom: 8px">
+              <span style="text-align: center;font-size: 0.8rem;font-weight: 100;">
+                (parcelado no cartão em até 12X)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Valor frete simples -->
+        <div fxFlex="25">
+          <div fxLayout="column" fxLayoutAlign="space-around center">
+
+            <!-- Texto Frete Simples-->
+            <div style="margin-bottom: 1px">
+              <span style="text-align: center;font-size: 1.0rem; font-weight: 200;">Frete Comum
+              </span>
+            </div>
+
+            <!-- Entrega entre x a x dias úteis-->
+            <div style="margin-bottom: 10px">
+              <span style="text-align: center;font-size: 0.8rem; font-weight: 100;">(Entrega entre 4 a 6 dias)
+              </span>
+            </div>
+
+            <!-- Texto "parcelado..." -->
+            <div style="margin-bottom: 8px">
+              <span style="text-align: center;font-size: 1.4rem;font-weight: 400;">
+                Grátis!
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botões finalizar/voltar às compras -->
+        <div fxFlex="25">
+          <div fxLayout="column" fxLayoutAlign="center center" style="width: 100%;">
+            <div style="margin-bottom: 30px;">
+              <button mat-raised-button color="primary" aria-label="Finaliar compra"
+                (click)="finalizarCompra()">Finalizar compra
+                <mat-icon aria-hidden="false">shopping_cart</mat-icon></button>
+            </div>
+            <div style="margin-bottom: 30px;">
+              <button mat-raised-button color="accent" aria-label="Adicionar ao carrinho" (click)="navegarParaHome()">
+                Continuar comprando
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Mensagem de carrinho vazio -->
+  <div fxFlex="100" fxLayout="column" fxLayoutAlign="start center"
+    *ngIf="(carrinhoServ.getQuantidadeProdutosCarrinho() < 1 ? true : false)">
+
+    <!-- Mensagem carrinho vazio -->
+    <div style="margin-bottom: 50px; margin-top: 30px;">
+      <span style="font-size: 1.8rem; font-weight: bold;">Seu carrinho está vazio :-(</span>
+    </div>
+
+    <!-- Mensagem sugerindo para comprar -->
+    <div style="margin-bottom: 50px;">
+      <span style="font-size: 1.4rem; font-weight: 300;">Que tal dar uma olhadinha em nossas promoções?</span>
+    </div>
+
+    <!-- Botão para voltar a home screen -->
+    <div>
+      <button mat-raised-button color="accent" aria-label="Adicionar ao carrinho" (click)="navegarParaHome()"> Ver
+        promoções
+        <mat-icon>loyalty</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+
+</div>

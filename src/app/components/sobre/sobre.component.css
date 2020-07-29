@@ -1,0 +1,26 @@
+.title-sobre {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.sobre-sub-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.sobre-sub-title {
+  font-size: 1.0rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.sobre-sub-paragraph {
+  font-size: 0.9rem;
+  font-weight: 100;
+  margin: 0 25px 10px;
+  text-align: justify;
+}

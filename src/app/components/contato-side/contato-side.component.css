@@ -1,0 +1,38 @@
+.title-contato-side {
+  margin-left: 5px;
+}
+.contato-chave-valor-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  width:100%
+}
+
+.contato-valor-container {
+  width: 50%;
+  font-size: 0.9rem;
+  font-weight: 100;
+}
+
+.contato-valor-full-container{
+  width: 100%;
+  font-size: 0.9rem;
+  font-weight: 100;
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.contato-valor-column-container{
+  width: 100%;
+  font-size: 0.9rem;
+  font-weight: 100;
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}

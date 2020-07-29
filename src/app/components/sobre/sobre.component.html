@@ -1,0 +1,62 @@
+<div fxLayout="column" fxLayoutAlign="center center" style="width: 100%; margin-bottom:30px">
+  <div>
+    <img src="/assets/extra/logo.png" alt="KaPoow Hardware Store" style="width: 500px; height: 150px;" />
+  </div>
+</div>
+
+<div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%; padding: 20px;">
+
+  <!-- Sobre nossa história -->
+  <div fxFlex="100">
+    <div class="sobre-sub-container">
+      <div class="sobre-sub-title">
+        <span>Sobre a nossa história</span>
+      </div>
+      <p class="sobre-sub-paragraph">
+        {{sobre}}
+      </p>
+      <p class="sobre-sub-paragraph">
+        {{sobreFim}}
+      </p>
+    </div>
+  </div>
+
+  <!-- Institucional e localização -->
+  <div fxFlex="100" style="width: 100%;">
+    <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="15px" style="width: 100%;">
+
+      <!-- Institucional -->
+      <div fxFlex="50">
+        <div class="sobre-sub-container" style="justify-content: center; align-items: center;">
+          <div class="sobre-sub-title">
+            <span>Institucional</span>
+          </div>
+          <div style="height: 385px; width: 420px; border:1px solid #111111; border-radius: 5px; background-color: #111111;">
+            <video width="100%" height="100%" controls>
+              <source src="/assets/extra/institucional.mp4" type="video/mp4">
+              Your browser does not support HTML video.
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <!-- Localização -->
+      <div fxFlex="50">
+        <div class="sobre-sub-container" style="justify-content: center; align-items: center;">
+          <div class="sobre-sub-title">
+            <span>Sede administrativa</span>
+          </div>
+          <div #map id="map" class="map" style="height: 345px; width: 420px;">
+          </div>
+          <div>
+            <span style="font-size: 0.7rem;">Rua Amintas de Barros, 333</span>
+          </div>
+          <div>
+            <span style="font-size: 0.7rem;">Centro - Curitiba / PR</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

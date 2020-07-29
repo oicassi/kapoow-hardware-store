@@ -1,0 +1,11 @@
+.sobre-side-link {
+  margin: 10px 2px 15px;
+  font-weight: 100;
+  display: flex;
+  align-items: center;
+}
+
+.sobre-item {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,57 @@
+<div>
+  <span class="title-contato">Fale conosco<mat-icon style="margin-left: 10px;">question_answer</mat-icon></span>
+</div>
+
+<div fxLayout="column" fxLayoutAlign="flex-start center" style="width: 100%; height: 100%;">
+
+
+  <div fxLayout="column" fxLayoutAlign="space-around center" class="mensagem-container">
+
+    <!-- Título do formulário -->
+    <h4 style="text-align: start; margin: 5px 0px 10px">
+      <mat-icon aria-hidden="false" style="margin-right: 10px;">add_comment</mat-icon>Mande uma mensagem para a KaPoow
+      :D
+    </h4>
+
+    <!-- Formulário propriamente dito -->
+    <form [formGroup]="msgForm" (ngSubmit)="enviarMensagem()" style="width: 100%;">
+      <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">
+
+        <!-- Nome -->
+        <mat-form-field style="width: 75%;">
+          <input matInput type="text" id="nome" name="nome" formControlName="nome" placeholder="Nome"
+            [(ngModel)]="nome" required />
+          <mat-error *ngIf="msgForm.get('nome').hasError('required')">Campo obrigatório</mat-error>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field style="width: 75%; margin-bottom: 30px;">
+          <input matInput type="email" id="email" name="email" formControlName="email" placeholder="Login (email)"
+            [(ngModel)]="email" required autocomplete="off" />
+          <mat-error *ngIf="msgForm.get('email').hasError('required')">Campo obrigatório</mat-error>
+          <mat-error *ngIf="msgForm.get('email').hasError('email')">Email inválido</mat-error>
+        </mat-form-field>
+
+        <!-- Corpo da mensagem -->
+        <mat-form-field style="width: 75%;">
+          <mat-label>Mensagem</mat-label>
+          <textarea matInput id="mensagem" name="mensagem" formControlName="mensagem"
+            placeholder="Escreva aqui sua mensagem" [(ngModel)]="mensagem" required autocomplete="off"
+            cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"></textarea>
+          <mat-error *ngIf="msgForm.get('mensagem').hasError('required')">Campo obrigatório</mat-error> 
+        </mat-form-field>
+
+        <!-- Botão enviar mensagem -->
+        <div style="margin-top: 20px;">
+          <button mat-raised-button color="primary">Enviar mensagem<mat-icon aria-hidden="false"
+              style="margin-left: 10px;">send
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+</div>

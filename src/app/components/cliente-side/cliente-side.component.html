@@ -1,0 +1,73 @@
+<div fxLayout="column" fxLayoutAlign="flex-start flex-start" style="width: 100%;">
+
+  <!-- Foto perfil -->
+  <div class="cliente-side-container" style="display: flex; justify-content: center; margin-bottom: 5px;">
+    <img src="{{profilePic}}" alt="{{nome}}" class="profile-pic">
+  </div>
+
+  <!-- Nome do cliente -->
+  <div class="cliente-side-container" style="display:flex;justify-content: center; margin-bottom: 5px;">
+    <div style="display: flex; justify-content: center; align-items: center; ">
+      <span style="font-size: 1.1rem; font-weight: 400; text-align: center;">{{nome}}</span>
+    </div>
+  </div>
+
+  <!-- Email do cliente -->
+  <div class="cliente-side-container" style="display:flex;justify-content: center;">
+    <div>
+      <span class="cliente-item" style="font-size: 0.8rem; font-weight: 100;text-align: center; word-break: break-all;">{{email}}</span>
+    </div>
+  </div>
+
+  <!-- Pedidos -->
+  <button mat-button class="cliente-side-container" (click)="mudarTab(0)">
+    <span class="cliente-item">
+      <mat-icon style="margin-right: 10px;">shopping_cart</mat-icon>Pedidos
+    </span>
+  </button>
+
+  <!-- Protocolos -->
+  <button mat-button class="cliente-side-container" (click)="mudarTab(1)">
+    <span class="cliente-item">
+      <mat-icon style="margin-right: 10px;">menu_book</mat-icon>Protocolos
+    </span>
+  </button>
+
+  <!-- Troca e garantia -->
+  <button mat-button class="cliente-side-container" (click)="mudarTab(2)" style="margin-bottom: 25px;">
+    <span class="cliente-item">
+      <mat-icon style="margin-right: 10px;">compare_arrows</mat-icon>Trocas e garantias
+    </span>
+  </button>
+
+  <!-- Atendimento -->
+  <div class="cliente-side-container" style="display:flex;justify-content: center; margin-bottom: 5px;">
+    <div style="display: flex; justify-content: center; align-items: center; ">
+      <span style="font-size: 1.1rem; font-weight: 500; text-align: center;">Atendimento</span>
+    </div>
+  </div>
+
+  <!-- Email -->
+  <div class="cliente-side-container" style="display:flex;justify-content: flex-start; margin-bottom: 5px;">
+    <div style="margin-left: 15px;">
+      <span style="font-size: 0.9rem; font-weight: 100;">atendimento@kapoow.com</span>
+    </div>
+  </div>
+  
+  <!-- Telefone -->
+  <div class="cliente-side-container" style="display:flex;justify-content: flex-start; margin-bottom: 5px;">
+    <div style="margin-left: 15px;">
+      <span style="font-size: 0.9rem; font-weight: 100; text-align: center;">Telefone: (41) 3987-2022</span>
+    </div>
+  </div>
+  
+  <!-- Chat -->
+  <button mat-button class="cliente-side-container">
+    <span class="cliente-item">
+      <mat-icon style="margin-right: 10px;">question_answer</mat-icon>Chat
+    </span>
+  </button>
+
+
+
+</div>

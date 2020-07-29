@@ -1,0 +1,6 @@
+.carousel-title {
+  margin: 0px 0px 10px;
+}
+::ng-deep.carousel {
+  margin-bottom: 15px;
+}

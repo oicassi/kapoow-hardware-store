@@ -1,0 +1,19 @@
+.cliente-side-container {
+  margin: 10px 0 15px;
+  font-weight: 100;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.cliente-item {
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  width: 180px;
+  height: 180px;
+  border:1px solid #555555;
+  border-radius: 50%;
+}

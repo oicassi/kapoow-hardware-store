@@ -1,0 +1,15 @@
+<div>
+  <span class="title-home-filtrado">Mostrando {{produtosFiltrados.length}} resultados para {{categoria}}</span>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-evenly center" class="main-container-home-filtrado">
+  <div fxFlex="33" *ngFor="let produto of produtosFiltrados" class="card-filtrado">
+    <app-card-produto
+      [nome]="produto.nome"
+      [imgUrl]="produto.imgUrl"
+      [rate]="produto.rate"
+      [precoNormal]="produto.precoNormal"
+      [precoPromo]="produto.precoPromo"
+    >
+    </app-card-produto>
+  </div>
+</div>

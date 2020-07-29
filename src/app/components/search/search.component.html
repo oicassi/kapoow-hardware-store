@@ -1,0 +1,11 @@
+<mat-toolbar fxLayout="row" fxLayoutAlign="center center">
+    <form (ngSubmit)="filtrarConteudo()" class="main-search">
+        <mat-form-field style="width: 95%;">
+            <input matInput type="text" placeholder="Busque por produtos" [(ngModel)]="inputSearch" name="inputSearch">
+        </mat-form-field>
+        <button mat-button color="basic" (click)="filtrarConteudo()">
+            <mat-icon aria-hidden="false">search</mat-icon>
+            Buscar
+        </button>
+    </form>
+</mat-toolbar>

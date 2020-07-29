@@ -1,0 +1,358 @@
+<div style="margin-bottom: 10px;"><span style="font-size:1.2rem; font-weight: bold;">Checkout</span></div>
+<div fxLayout="row" fxLayout="space-around center" fxLayoutGap="20px" style="width: 100%; height: 100%;">
+  <!-- Endereço -->
+  <div fxFlex="32" style="height: 73vh;">
+    <mat-card style="height: 100%; min-height: 100%;">
+      <mat-card-header>
+        <mat-card-title>1 - Endereço</mat-card-title>
+      </mat-card-header>
+
+      <!-- Seletor de endereço -->
+      <div fxLayout="column" fxLayoutAlign="space-around center" style="margin:20px 0 20px; width: 100%;">
+        <mat-form-field>
+          <mat-label>Selecione o endereço para envio</mat-label>
+          <mat-select (selectionChange)="selecionarEndereco($event.value)">
+            <mat-option *ngFor="let end of dmyServ.getListaEnderecos()" value="{{end.nomeEnd}}">
+              {{end.nomeEnd}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Endereço selecionado -->
+      <div fxLayout="column" fxLayoutAlign="space-around space-around" style="margin:20px 0 30px; width: 100%;"
+        *ngIf="isEnderecoSelecionado()">
+        <div style="margin-bottom: 15px;"><span style="font-size: 1.2rem; font-weight: 200;">
+            <mat-icon style="margin-right: 10px;" aria-hidden="false">room</mat-icon> Endereço selecionado: <span
+              style="font-weight: 500;">{{nomeEnd}}</span>
+          </span></div>
+        <div><span style="font-weight: 100;">{{logradouro}} - {{numero}}</span></div>
+        <div><span style="font-weight: 100;">{{bairro}} - {{complemento}}</span></div>
+        <div><span style="font-weight: 100;">{{cep}} - {{cidade}} / {{uf}}</span></div>
+      </div>
+
+      <!-- Cadastrar novo endereço -->
+      <div fxLayout="column" fxLayoutAlign="space-around center" style="margin:20px 0 20px; width: 100%;">
+        <div style="margin-bottom: 15px;"><span style="font-size: 1.2rem; font-weight: 200;">
+            <mat-icon style="margin-right: 10px;" aria-hidden="false">add_location_alt</mat-icon> Cadastrar novo
+            endereço
+          </span>
+        </div>
+
+        <form [formGroup]="enderecoForm" (ngSubmit)="adicionarEndereco()" style="width: 100%;">
+          <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">
+
+            <!-- Nome e CEP -->
+            <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px" fxFlex="100"
+              style="width: 100%;">
+              <!-- Nome do endereço -->
+              <mat-form-field fxFlex="75" style="width: 80%;">
+                <input matInput type="text" id="nomeEnd" name="nomeEnd" formControlName="nomeEnd"
+                  placeholder="Identificação do endereço" [(ngModel)]="nomeEnd" required />
+                <mat-error *ngIf="enderecoForm.get('nomeEnd').hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+
+              <!-- CEP -->
+              <mat-form-field fxFlex="25" style="width: 15%;">
+                <input matInput type="text" id="cep" name="cep" formControlName="cep" placeholder="CEP"
+                  [(ngModel)]="cep" mask="{{cepMask}}" required />
+                <mat-error *ngIf="enderecoForm.get('cep').hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+            </div>
+
+
+            <!-- Logradouro  e número-->
+            <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px" fxFlex="100"
+              style="width: 100%;">
+
+              <!-- Logradouro -->
+              <mat-form-field fxFlex="85" style="width: 85%;">
+                <input matInput type="text" id="logradouro" name="logradouro" formControlName="logradouro"
+                  placeholder="Logradouro" [(ngModel)]="logradouro" required />
+                <mat-error *ngIf="enderecoForm.get('logradouro').hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+
+              <!-- Numero -->
+              <mat-form-field fxFlex="15" style="width: 15%;">
+                <input matInput type="text" id="numero" name="numero" formControlName="numero" placeholder="Número"
+                  [(ngModel)]="numero" mask="{{numeroMask}}" required />
+                <mat-error *ngIf="enderecoForm.get('numero').hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- Informações adicionais do endereço -->
+            <div fxLayout="row" flxLayoutAlign="space-around center" fxLayoutGap="10px" fxFlex="100"
+              style="width: 100%;">
+
+              <!-- Bairro -->
+              <mat-form-field fxFlex="26" style="width: 26%;">
+                <input matInput type="text" id="bairro" name="bairro" formControlName="bairro" placeholder="Bairro"
+                  [(ngModel)]="bairro" required />
+                <mat-error *ngIf="enderecoForm.get('bairro').hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+
+              <!-- Complemento -->
+              <mat-form-field fxFlex="29" style="width: 28%;">
+                <input matInput type="text" id="complemento" name="complemento" formControlName="complemento"
+                  placeholder="Complemento" [(ngModel)]="complemento" required />
+                <mat-error *ngIf="enderecoForm.get('complemento').hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+
+              <!-- Cidade -->
+              <mat-form-field fxFlex="30" style="width: 28%;">
+                <input matInput type="text" id="cidade" name="cidade" formControlName="cidade" placeholder="Cidade"
+                  [(ngModel)]="cidade" required />
+                <mat-error *ngIf="enderecoForm.get('cidade').hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+
+              <!-- UF -->
+              <mat-form-field fxFlex="10" style="width: 10%;">
+                <mat-label>UF</mat-label>
+                <mat-select [(value)]="uf">
+                  <mat-option *ngFor="let uf of ufs" value="{{uf}}">
+                    {{uf}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- Botão adicionar endereço -->
+            <div style="margin-bottom: 20px; margin-top:10px">
+              <button mat-raised-button color="accent">Adicionar novo endereço<mat-icon aria-hidden="false"
+                  style="margin-left: 10px;">add_location
+                </mat-icon>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Pagamento e envio -->
+  <div fxFlex="32" style="height: 73vh;">
+    <mat-card style="height: 100%; min-height: 100%;">
+      <mat-card-header>
+        <mat-card-title>2 - Pagamento e envio</mat-card-title>
+      </mat-card-header>
+
+      <!-- Seletor de tipo de frete -->
+      <div fxLayout="column" fxLayoutAlign="space-around center" style="margin:0px 0 20px; width: 100%;">
+
+        <!-- Texto forma de envio -->
+        <div style="margin-bottom: 15px;"><span style="font-size: 1.2rem; font-weight: 200;">
+            <mat-icon style="margin-right: 10px;" aria-hidden="false">local_shipping</mat-icon>Forma de envio: <span
+              style="font-weight: 500;">{{envioSelecionado === 'expresso' ? 'Expresso' : 'Normal'}}</span>
+          </span>
+        </div>
+
+        <!-- Infos do frete -->
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
+
+          <!-- Radio buttons -->
+          <div class="column-frete" fxFlex="30">
+            <mat-radio-group aria-label="Selecione o tipo de frete" [(ngModel)]="envioSelecionado" color="primary">
+              <mat-radio-button value="expresso" checked="true" style="margin-bottom: 5px;">Expresso</mat-radio-button>
+              <mat-radio-button value="normal" style="margin-bottom: 5px;">Normal</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <!-- Dias -->
+          <div class="column-frete" fxFlex="30">
+            <div style="margin-bottom: 5px;"><span>1 - 2 dias</span></div>
+            <div style="margin-bottom: 5px;"><span>4 - 6 dias</span></div>
+          </div>
+
+          <!-- Preço do frete -->
+          <div class="column-frete">
+            <div style="margin-bottom: 5px;"><span>{{23.00 | currency:'BRL' : 'symbol'}}</span></div>
+            <div style="margin-bottom: 5px;"><span>Grátis</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Texto forma de pagamento -->
+      <div style="margin-bottom: 15px; display: flex; flex-direction: row; justify-content: center;"><span
+          style="font-size: 1.2rem; font-weight: 200;">
+          <mat-icon style="margin-right: 10px;" aria-hidden="false">local_atm</mat-icon>Forma de pagamento: <span
+            style="font-weight: 500;">{{pagamentoSelecionado === 'cartao' ? 'Cartão' : 'Boleto'}}</span>
+        </span>
+      </div>
+
+      <!-- Seletor da forma de envio -->
+      <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
+        <mat-radio-group aria-label="Selecione a forma de pagamento" [(ngModel)]="pagamentoSelecionado" color="primary">
+          <mat-radio-button value="cartao" checked="true" style="margin-right: 20px;">
+            <mat-icon style="margin-right: 5px;">credit_card</mat-icon>Cartão de crédito
+
+          </mat-radio-button>
+          <mat-radio-button value="boleto">
+            <mat-icon style="margin-right: 5px;">vertical_split</mat-icon>Boleto Bancário
+
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <!-- Infos para o caso de seleção de pagamento por cartao -->
+      <div fxLayout="column" fxLayoutAlign="start space-around" *ngIf="pagamentoSelecionado == 'cartao'">
+
+        <!-- Seletor de cartão -->
+        <div fxLayout="column" fxLayoutAlign="space-around center" style="margin:20px 0 0px; width: 100%;">
+          <mat-form-field>
+            <mat-label>Selecione cartão</mat-label>
+            <mat-select (selectionChange)="selecionarCartao($event.value)">
+              <mat-option *ngFor="let card of dmyServ.getListaCartoes()" value="{{card.nomeCartao}}">
+                {{card.nomeCartao}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Formulário novo cartão -->
+        <form [formGroup]="cartaoForm" (ngSubmit)="adicionarCartao()" style="width: 100%;">
+          <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">
+
+            <!-- Numero do cartão-->
+            <mat-form-field fxFlex="100" style="width: 100%;">
+              <input matInput type="text" id="numeroCartao" name="numeroCartao" formControlName="numeroCartao"
+                placeholder="Número do cartão" [(ngModel)]="numeroCartao" required mask="{{numeroCartaoMask}}" />
+              <mat-error *ngIf="cartaoForm.get('numeroCartao').hasError('required')">Campo obrigatório</mat-error>
+            </mat-form-field>
+
+            <!-- Nome no cartão -->
+            <mat-form-field fxFlex="100" style="width: 100%;">
+              <input matInput type="text" id="nome" name="nome" formControlName="nome"
+                placeholder="Nome (como consta no cartão)" [(ngModel)]="nome" required />
+              <mat-error *ngIf="cartaoForm.get('nome').hasError('required')">Campo obrigatório</mat-error>
+            </mat-form-field>
+
+
+            <!-- Validade e CVV -->
+            <div fxLayout="row" flxLayoutAlign="space-around center" fxLayoutGap="10px" fxFlex="100"
+              style="width: 100%;">
+
+              <!-- Validade -->
+              <mat-form-field fxFlex="60" style="width: 60%;">
+                <input matInput type="text" id="validade" name="validade" formControlName="validade"
+                  placeholder="Validade (MM/AAAA)" [(ngModel)]="validade" required mask="{{validadeMask}}" />
+                <mat-error *ngIf="cartaoForm.get('validade').hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+
+              <!-- CVV -->
+              <mat-form-field fxFlex="40" style="width: 40%;">
+                <input matInput type="text" id="cvv" name="cvv" formControlName="cvv"
+                  placeholder="Código de verificação" [(ngModel)]="cvv" required mask="{{cvvMask}}" />
+                <mat-error *ngIf="cartaoForm.get('cvv').hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- Botão adicionar cartão -->
+            <div style="margin-bottom: 20px; margin-top:10px">
+              <button mat-raised-button color="accent">Adicionar novo cartão<mat-icon aria-hidden="false"
+                  style="margin-left: 10px;">payments
+                </mat-icon>
+              </button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+      <!-- Infos para o caso de seleção de pagamento por boleto -->
+      <div fxLayout="column" fxLayoutAlign="start center" *ngIf="pagamentoSelecionado == 'boleto'">
+        <div
+          style="margin: 30px 0 30px; display: flex;flex-direction: column; align-items: center; justify-content: center;">
+
+          <!-- Info sobre boleto -->
+          <span style="font-size: 1.2rem; font-weight: 200;">O boleto será gerado ao Finaliazar a compra
+          </span>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Revisar e finalizar -->
+  <div fxFlex="32" style="height: 73vh;">
+    <mat-card style="height: 100%; min-height: 100%;">
+      <mat-card-header>
+        <mat-card-title>3 - Finalizar</mat-card-title>
+      </mat-card-header>
+
+      <!-- Resumo do carrinho -->
+      <div style="margin-bottom: 5px; display: flex; justify-content: center;"><span style="font-size: 1.2rem; font-weight: 200;">
+          <mat-icon style="margin-right: 10px;" aria-hidden="false">shopping_cart</mat-icon> Resumo do carrinho
+        </span>
+      </div>
+
+      <!-- Lista dos itens do carrinho -->
+      <div class="finaliza-show-carrinho">
+        <div *ngFor="let produto of carrinhoServ.getProdutosCarrinho(); let i = index" class="card-carrinho-resumo">
+          <app-card-finaliza [nome]="produto.nome" [imgUrl]="produto.imgUrl" [precoPromo]="produto.precoPromo"
+            [quantidade]="produto.quant" style="width: 100%;">
+          </app-card-finaliza>
+        </div>
+      </div>
+
+      <!-- Se forma pagamento é cartão, selecina o parcelamento -->
+      <div class="finaliza-parcela" *ngIf="pagamentoSelecionado === 'cartao'? true : false">
+        <div style="width: 30%;">
+          <mat-form-field style="width: 50%;">
+            <label for="parcelas"><span style="font-size: 0.8rem;">Parcelas</span></label>
+            <input matInput type="number" [(ngModel)]="numParcelas" min="1" max="12" step="1" name="parcelas"
+              id="parcelas">
+          </mat-form-field>
+        </div>
+        <div style="width: 30%; display: flex; justify-content: center;">
+          <span> de </span>
+        </div>
+        <div style="width: 40%; display: flex; justify-content: end;">
+          <span
+            style="font-size: 1.0rem;">{{(carrinhoServ.getValorTotalCartao() / numParcelas | currency:'BRL' : 'symbol')}}</span>
+        </div>
+      </div>
+
+      <div class="finaliza-frete">
+        <div>
+          <span style="font-size: 0.9rem; font-weight: 200;"> Valor do frete: </span>
+        </div>
+
+        <div>
+          <span style="font-size: 1.0rem; font-weight: 400;"> {{getValorEnvio() | currency:'BRL' : 'symbol'}}</span>
+        </div>
+      </div>
+      <div class="finaliza-total">
+        <div>
+          <span> TOTAL: </span>
+        </div>
+
+        <!-- Valor total no cartão -->
+        <div *ngIf="pagamentoSelecionado === 'cartao'? true : false">
+          <span style="font-size: 1.4rem; font-weight: 400;">{{(carrinhoServ.getValorTotalCartao() + getValorEnvio() | currency:'BRL' : 'symbol')}}</span>
+        </div>
+
+        <!-- Valor total no boleto -->
+        <div *ngIf="pagamentoSelecionado === 'boleto'? true : false">
+          <span style="font-size: 1.4rem; font-weight: 400;">{{(carrinhoServ.getValorTotalBoleto() + getValorEnvio()| currency:'BRL' : 'symbol')}}</span>
+        </div>
+      </div>
+
+      <!-- Container para os botões -->
+      <div class="finaliza-botoes">
+
+        <!-- Botão para finalizar compras -->
+        <div style="margin-bottom: 10px; margin-top:5px" (click)="finalizarCompra()">
+          <button mat-raised-button color="primary">FINALIZAR A COMPRA<mat-icon style="margin-left: 10px;">
+              shopping_cart</mat-icon>
+          </button>
+        </div>
+
+        <!-- Botão para retornar ao carrinho de compras -->
+        <div style="margin-bottom: 20px; margin-top:5px" (click)="navegar('carrinho')">
+          <button mat-raised-button color="accent">Retornar ao carrinho de compras
+          </button>
+        </div>
+
+      </div>
+    </mat-card>
+  </div>
+</div>

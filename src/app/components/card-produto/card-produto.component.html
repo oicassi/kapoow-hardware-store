@@ -1,0 +1,57 @@
+<mat-card class="produto-card">
+  <mat-card-content>
+    <!-- Cabeçalho com imagem, nome e estrelas -->
+    <div fxLayout="column" fxLayoutAlign="start center" class="card-header-container" (click)="irParaProduto()">
+      <!-- Imagem do card -->
+      <div fxFlex="20" style="margin-right: 10px;">
+        <img src="{{imgUrl}}" alt="{{nome}}" style="height: 150px; width: 150px;" class="card-avatar" />
+      </div>
+
+      <!-- Nome e estrelas -->
+      <div fxFlex="80" class="title-rate-container">
+
+        <!-- Nome -->
+        <span class="card-produto-title">{{nome}}</span>
+
+        <!-- Estrelas -->
+        <div class="estrelas-container">
+          <span *ngFor="let estrelaPreenchida of getEstrelasPreenchidas()">
+            <mat-icon aria-hidden="false" [ngStyle]="{'color': 'gold', 'font-size': '0.9rem'}">star</mat-icon>
+          </span>
+          <span *ngFor="let estrelaVazia of getEstrelasVazias()">
+            <mat-icon aria-hidden="false" [ngStyle]="{'color': 'gold', 'font-size': '0.9rem'}">star_border</mat-icon>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Informativo de preços e botão de comprar-->
+    <div fxLayout="column" fxLayoutAlign="space-between center">
+      <div style="margin-bottom: 1px">
+        <span style="text-align: center;font-size: 0.8rem; font-weight: 100;">de
+          {{precoNormal | currency:'BRL' : 'symbol'}} por</span>
+      </div>
+      <div style="margin-bottom: 1px">
+        <span
+          style="text-align: center;font-size: 1.2rem; font-weight: 500;">{{precoPromo | currency:'BRL' : 'symbol'}}</span>
+      </div>
+      <div style="margin-bottom: 5px">
+        <span style="text-align: center;font-size: 0.8rem;font-weight: 100;">à vista no boleto</span>
+      </div>
+
+      <!-- Botão de comprar -->
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px" style="width: 100%;">
+        <div>
+          <button mat-raised-button color="primary" aria-label="Comprar agora" (click)="comprarDireto()">Comprar
+            <mat-icon aria-hidden="false">shopping_cart</mat-icon></button>
+        </div>
+        <div>
+          <button mat-raised-button color="accent" aria-label="Adicionar ao carrinho" matTooltip="Adicionar ao carrinho"
+            (click)="adicionarAoCarrinho()">
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

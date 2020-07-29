@@ -1,0 +1,8 @@
+.title-categories {
+  margin-left: 5px;
+}
+
+.lista-categories {
+  max-height: 100vh;
+  overflow-y: auto;
+}
