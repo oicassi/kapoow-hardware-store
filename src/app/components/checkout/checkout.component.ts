@@ -260,7 +260,6 @@ export class CheckoutComponent implements OnInit {
     this.carrinhoServ.limparCarrinho();
     this._snackBar.open('Compra realizada com sucesso!', 'Compra efetuada', { duration: 5000, panelClass: ['snackbar-success'] });
     setTimeout(() => {
-      console.log('Redirecionar para área do cliente');
       this._router.navigate(['cliente']);
     }, 3000);
   }
