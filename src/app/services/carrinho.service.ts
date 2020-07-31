@@ -51,7 +51,7 @@ export class CarrinhoService {
       this.produtosCarrinho[i].quant = quant;
       return;
     }
-    console.log('Erro atualizar quantidade. Produto não encontrado no carriho');
+    alert('Erro atualizar quantidade. Produto não encontrado no carriho');
   }
 
   removerItem(produto:string) {
